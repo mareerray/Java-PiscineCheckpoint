@@ -15,6 +15,7 @@ public class MonthlyPeriod {
             Period p = Period.between(date1, date2);
             if (p.isNegative()) {
                 p = Period.between(date2, date1);
+                // Example: between 2020-01-01 and 2022-03-01 → P2Y2M
             }
             int years = p.getYears();
             int months = p.getMonths();
