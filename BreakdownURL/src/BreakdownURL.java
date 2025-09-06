@@ -19,11 +19,6 @@ public class BreakdownURL {
             if (matcher.group(4) != null) result.put("path", matcher.group(4));
             if (matcher.group(5) != null) result.put("query", matcher.group(5));
         }
-        /*
-        if (!result.containsKey("path") && result.containsKey("protocol") && result.containsKey("domain")) {
-            result.put("path", "/");
-        }*/
-
         return result;
     }
 }
