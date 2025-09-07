@@ -17,5 +17,17 @@ public class ExerciseRunner {
         // Test case 4: Valid HTML with multiple tags
         String html4 = "<html><body><div><p>This is a <b>bold</b> word and this is <i>italic</i>.</p></div></body></html>";
         System.out.println("Is HTML valid? " + validator.validateHTML(html4)); // Expected output: true
+
+        String html5 = "<html><body><div><p>This is a <br/> word.</p></div></body></html>";
+        System.out.println("Is HTML valid? " + validator.validateHTML(html5)); // Expected output: true
+
+        String html6 = "";
+        System.out.println("Is HTML valid? " + validator.validateHTML(html6)); // Expected output: true
+
+        String html7 = "<html><body><div><p>";
+        System.out.println("Is HTML valid? " + validator.validateHTML(html7)); // Expected output: false
+
+        String html8 = "</p></div></body></html>";
+        System.out.println("Is HTML valid? " + validator.validateHTML(html8)); // Expected output: false
     }
 }

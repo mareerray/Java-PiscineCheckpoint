@@ -65,16 +65,18 @@ public class ProjectTime {
     // Less than 120 days = 2880 hrs: hoursLogged d
     // More than 120 days: hoursLogged mo
     public String getHoursLogged() {
-        if (hoursLogged == -1) return "-1";
-        if (diffInMillis < 0) return "-1";
+        if (hoursLogged == -1 || diffInMillis < 0) return "-1";
         long totalMinutes = diffInMillis / (60 * 1000);
-        if (totalMinutes < 120) return totalMinutes + " m";
+        if (totalMinutes <= 119) return totalMinutes + " m";
         long totalHours = diffInMillis / (60 * 60 * 1000);
-        if (totalHours < 120) return totalHours + " h";
-        long totalDays = diffInMillis / (24 * 60 * 60 * 1000);
-        if (totalDays < 120) return totalDays + " d";
-        long months = totalDays / 30;
-        return months + " mo";
+        if (totalHours <= 119) return totalHours + " h";
+        long millisPerDay = 24 * 60 * 60 * 1000;
+        long totalDays = (diffInMillis + millisPerDay - 1) / millisPerDay; // ceil division
+        if (totalDays <= 119) {
+            return totalDays + " d";
+        } else {
+            return (totalDays / 30) + " mo";
+        }
     }
 }
 
@@ -96,4 +98,5 @@ you must recalculate hoursLogged so it always matches the current values.
 Getter:
 The getter method is just a public method that returns the value of a private field.
 This is a fundamental part of Java encapsulation, allowing controlled access to a class's data.
- */
+*/
+

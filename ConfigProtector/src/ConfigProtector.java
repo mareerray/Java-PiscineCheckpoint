@@ -30,3 +30,11 @@ public class ConfigProtector {
         return protectedConfig;
     }
 }
+
+/*
+Part	            Meaning
+Pattern.quote(key)	Escapes key to match it literally
+=	                Matches the literal = sign
+(?<=...)	        Lookbehind—asserts the match is after key= but does not include it
+.*	                Matches any character (zero or more) after the position
+ */

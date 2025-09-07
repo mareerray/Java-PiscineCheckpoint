@@ -19,14 +19,16 @@ public class MonthlyPeriod {
             int years = p.getYears();
             int months = p.getMonths();
 
-            if (years > 0 && months > 0) {
+            if (years == 1 && months == 1){
+                return "1 year and 1 month";
+            } else if (years > 1 && months > 1) {
                 return years + " years and " + months + " months";
             } else if (years > 0) {
                 return years + " years";
             } else if (months > 0) {
                 return months + " months";
             } else {
-                return "0 months";
+                return "";
             }
         } catch (Exception e) {
             return "Error";
