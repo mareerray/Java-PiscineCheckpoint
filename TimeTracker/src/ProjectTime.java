@@ -37,23 +37,21 @@ public class ProjectTime {
 
     // calculate duration based on startTime and endTime
     // set hoursLogged = calculated value OR -1 in case of error
-    private long diffInMillis = -1;
 
     private void calculateHoursLogged() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             Date start = sdf.parse(startTime);
             Date end = sdf.parse(endTime);
-            diffInMillis = end.getTime() - start.getTime();
+            Long diffInMillis = end.getTime() - start.getTime();
             if (diffInMillis < 0) {
                 hoursLogged = -1;
             } else {
-                long minutes = diffInMillis / (60 * 1000);
-                hoursLogged = (float) minutes / 60.0f;
+                //long minutes = diffInMillis / (60 * 1000);
+                hoursLogged = (float) diffInMillis / (60 * 60 * 1000f);
             }
         } catch (Exception e) {
             hoursLogged = -1;
-            diffInMillis = -1;
         }
     }
     // Getter: return the value of a private field
@@ -65,17 +63,18 @@ public class ProjectTime {
     // Less than 120 days = 2880 hrs: hoursLogged d
     // More than 120 days: hoursLogged mo
     public String getHoursLogged() {
-        if (hoursLogged == -1 || diffInMillis < 0) return "-1";
-        long totalMinutes = diffInMillis / (60 * 1000);
-        if (totalMinutes <= 119) return totalMinutes + " m";
-        long totalHours = diffInMillis / (60 * 60 * 1000);
-        if (totalHours <= 119) return totalHours + " h";
-        long millisPerDay = 24 * 60 * 60 * 1000;
-        long totalDays = (diffInMillis + millisPerDay - 1) / millisPerDay; // ceil division
-        if (totalDays <= 119) {
-            return totalDays + " d";
+        float diffInMins = hoursLogged * 60;
+
+        if (hoursLogged < 0) return "-1";
+
+        if (hoursLogged >= 0 && hoursLogged < 1) return ((int)diffInMins) + " m";
+
+        if (hoursLogged >= 1 && hoursLogged < 120) return ((int)hoursLogged) + " h";
+
+        if (hoursLogged < 1440) {
+            return ((int)(hoursLogged / 24)) + " d";
         } else {
-            return (totalDays / 30) + " mo";
+            return ((int)(hoursLogged+1) / (24 * 30)) + " mo";
         }
     }
 }

@@ -9,6 +9,7 @@ public class AgeFinder {
             LocalDate now =  LocalDate.now();
 
             Period p = Period.between(startDate, now);
+            // System.out.println(p);
             if (startDate.isAfter(now)) return -1;
 
             int years = p.getYears();
