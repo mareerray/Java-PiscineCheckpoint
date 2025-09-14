@@ -20,12 +20,12 @@ public class ConfigProtector {
 
             StringBuffer sb = new StringBuffer();
             while (matcher.find()) {
-                String value = matcher.group();
-                String masked = "*".repeat(value.length());
-                matcher.appendReplacement(sb, masked);
+                String value = matcher.group();                   // Get the sensitive value
+                String masked = "*".repeat(value.length());       // Create a string of asterisks ("******")
+                matcher.appendReplacement(sb, masked);            // Replace found value in sb
             }
-            matcher.appendTail(sb);
-            protectedConfig = sb.toString();
+            matcher.appendTail(sb);                               // Copy rest of original String after last match
+            protectedConfig = sb.toString();                      // Produce the fully masked config string
         }
         return protectedConfig;
     }
